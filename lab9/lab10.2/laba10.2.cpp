@@ -58,7 +58,7 @@ int main() {
     // Открытие файла для добавления
     FILE* file = fopen("C:/Users/Konstantin/Desktop/10.0/results.txt", "a");
     if (file == NULL) {
-        printf("Ошибка открытия файла!\n");
+        printf("Ошибка открытия файла! Исправьте ошибку и запустите программу заново!\n");
         return 1;
     }
 
