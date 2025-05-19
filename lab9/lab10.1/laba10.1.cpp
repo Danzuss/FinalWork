@@ -5,6 +5,14 @@
 #include <locale.h>
 #include <math.h>
 
+// Объявление переменных (каждая с новой строки)
+int A[20];          // Основной рабочий массив
+int k1;             // Первый индекс для обработки
+int k2;             // Второй индекс для обработки
+FILE* file;         // Указатель на файл для записи
+FILE* readFile;     // Указатель на файл для чтения
+int sum;            // Переменная для хранения суммы
+
 void initializeArray(int* arr, int size) {
     srand(time(0));
     for (int i = 0; i < size; i++) {
@@ -45,18 +53,25 @@ void readArrayFromFile(int* arr, int size, FILE* file) {
 
 int main() {
     setlocale(LC_ALL, "");
-    int A[20];
-    int k1, k2;
+
+    // Проверка на положительность первого элемента массива
+    initializeArray(A, 20);
+    if (A[0] > 0) {
+        // Условное выражение проверяет знак первого элемента
+        printf("Первый элемент массива положительный: %d\n", A[0]);
+    }
+    else {
+        printf("Первый элемент массива не положительный: %d\n", A[0]);
+    }
 
     // Открытие файла для добавления данных
-    FILE* file = fopen("E:/Programmirovanie/labworks/lab10/results.txt", "a");
+    file = fopen("E:/Programmirovanie/labworks/lab10/results.txt", "a");
     if (file == NULL) {
         printf("Ошибка открытия файла!\n");
         return 1;
     }
 
-    // Генерация массива случайных чисел, если необходимо
-    initializeArray(A, 20);
+    // Генерация случайных индексов
     k1 = rand() % 20;
     k2 = rand() % 20;
 
@@ -71,7 +86,7 @@ int main() {
 
     fprintf(file, "k1 = %d, k2 = %d\n", k1, k2);
 
-    int sum = sumArray(A, 20);
+    sum = sumArray(A, 20);
     fprintf(file, "Сумма A: %d\n", sum);
 
     // Закрытие файла
@@ -79,17 +94,16 @@ int main() {
 
     printf("Результаты сохранены в файл results.txt\n");
 
-    //прочитать данные из файла и использовать их для дальнейшей обработки:
-    FILE* readFile = fopen("results.txt", "r");
+    // Чтение данных из файла
+    readFile = fopen("results.txt", "r");
     if (readFile == NULL) {
         printf("Ошибка открытия файла для чтения!\n");
         return 1;
     }
 
-    // Прочитаем массив из файла (если данные записаны в правильном формате)
     readArrayFromFile(A, 20, readFile);
 
-    //обработаем прочитанный массив:
+    // Обработка прочитанного массива
     processArray(A, 20, k1, k2);
     printf("Обработанный массив из файла: ");
     for (int i = 0; i < 20; i++) {
