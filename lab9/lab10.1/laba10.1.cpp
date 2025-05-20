@@ -15,9 +15,15 @@ int sum;            // Переменная для хранения суммы
 
 void initializeArray(int* arr, int size) {
     srand(time(0));
+    printf("Четные значения массива при инициализации:\n");
     for (int i = 0; i < size; i++) {
         arr[i] = rand() % 21 - 10;
+        // Проверка на четность и вывод
+        if (arr[i] % 2 == 0) {
+            printf("%d ", arr[i]);
+        }
     }
+    printf("\n");
 }
 
 void printArrayToFile(const int* arr, int size, FILE* file) {
@@ -54,10 +60,11 @@ void readArrayFromFile(int* arr, int size, FILE* file) {
 int main() {
     setlocale(LC_ALL, "");
 
-    // Проверка на положительность первого элемента массива
+    // Инициализация массива с выводом четных значений
     initializeArray(A, 20);
+
+    // Проверка на положительность первого элемента массива
     if (A[0] > 0) {
-        // Условное выражение проверяет знак первого элемента
         printf("Первый элемент массива положительный: %d\n", A[0]);
     }
     else {
